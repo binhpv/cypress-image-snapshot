@@ -1,9 +1,9 @@
 {
-  "name": "@pkerschbaum/cypress-image-snapshot",
+  "name": "@binhpv/cypress-image-snapshot",
   "version": "1.0.1",
   "description": "Cypress bindings for jest-image-snapshot.",
   "repository": "https://github.com/pkerschbaum/cypress-image-snapshot",
-  "author": "Patrick Kerschbaum <patrick.kerschbaum@gmail.com>, Jack Cross <jack@palmer.net>",
+  "author": "Binh Phan <binhpv@live.com>",
   "license": "MIT",
   "main": "./lib/index.js",
   "engines": {
