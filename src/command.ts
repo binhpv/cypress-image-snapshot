@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import path from 'path';
 import { MATCH, RECORD } from './constants';
 import {
   DiffImageToSnapshotResult,
@@ -13,6 +12,7 @@ import {
   SnapshotOptions,
 } from './types';
 
+const screenshotsFolder = Cypress.config('screenshotsFolder');
 const updateSnapshots = Cypress.env('updateSnapshots') || false;
 const failOnSnapshotDiff =
   typeof Cypress.env('failOnSnapshotDiff') === 'undefined';
@@ -28,7 +28,7 @@ interface MatchImageSnapshotFn {
   ): Cypress.Chainable;
 }
 
-function matchImageSnapshotCommand(defaultOptions?: SnapshotOptions) {
+export function matchImageSnapshotCommand(defaultOptions?: SnapshotOptions) {
   const matchImageSnapshot: MatchImageSnapshotFn = (
     subject: unknown,
     maybeName?: string | SnapshotOptions,
@@ -39,15 +39,14 @@ function matchImageSnapshotCommand(defaultOptions?: SnapshotOptions) {
       ...((typeof maybeName === 'string' ? commandOptions : maybeName) ?? {}),
     };
 
-    // the snapshot is put next to the Cypress spec file in a folder "__cy_image_snapshots__"
-    const snapshotFolder = path.join(
-      `./${Cypress.spec.relative}`,
-      '..',
-      '__cy_image_snapshots__'
-    );
+    if (screenshotsFolder === false) {
+      throw new Error(
+        `could not read screenshots folder path (Cypress.config('screenshotsFolder'))`
+      );
+    }
 
     const matchTaskOptions: MatchTaskOptions = {
-      snapshotFolder,
+      screenshotsFolder,
       updateSnapshots,
       options,
     };
