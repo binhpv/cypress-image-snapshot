@@ -1,6 +1,6 @@
 {
   "name": "@binhpv/cypress-image-snapshot",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Cypress bindings for jest-image-snapshot.",
   "repository": "https://github.com/pkerschbaum/cypress-image-snapshot",
   "author": "Binh Phan <binhpv@live.com>",
