@@ -1,7 +1,7 @@
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
-
+type RetryOptions = {retryCounter?: number; retryWaitingTime?: number}
 export type SnapshotOptions = Partial<Cypress.ScreenshotOptions> &
-  MatchImageSnapshotOptions;
+  MatchImageSnapshotOptions & RetryOptions;
 
 declare global {
   namespace Cypress {

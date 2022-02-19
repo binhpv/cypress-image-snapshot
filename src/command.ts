@@ -74,6 +74,14 @@ export function matchImageSnapshotCommand(defaultOptions?: SnapshotOptions) {
       } = taskResult as DiffImageToSnapshotResult;
 
       if (!pass && !added && !updated) {
+        if (options.retryCounter && options.retryCounter > 0) {
+          const newCommandOptions = {
+            ...commandOptions,
+            retryCounter: options.retryCounter - 1,
+          };
+          cy.wait(newCommandOptions.retryWaitingTime ?? 100);
+          return name ? matchImageSnapshot(subject, name, newCommandOptions) : matchImageSnapshot(subject, newCommandOptions);
+        }
         const message = diffSize
           ? `Image size (${imageDimensions.baselineWidth}x${imageDimensions.baselineHeight}) different than saved snapshot size (${imageDimensions.receivedWidth}x${imageDimensions.receivedHeight}).\nSee diff for details: ${diffOutputPath}`
           : `Image was ${
